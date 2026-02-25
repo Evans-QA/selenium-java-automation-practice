@@ -16,6 +16,9 @@ public class CourseAssignmentOne {
     driver.findElement(By.id("checkBoxOption1")).click();
     Assert.assertFalse(driver.findElement(By.id("checkBoxOption1")).isSelected());
 
+    System.out.println(driver.findElements(By.cssSelector("input[type='checkbox']")).size());
+    Assert.assertEquals(driver.findElements(By.cssSelector("input[type='checkbox']")).size(), 3);
+
     driver.quit();
 
     }
