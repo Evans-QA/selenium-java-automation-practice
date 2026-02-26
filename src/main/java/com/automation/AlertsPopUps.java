@@ -1,5 +1,6 @@
 package com.automation;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -20,6 +21,8 @@ public class AlertsPopUps {
 
         wait.until(ExpectedConditions.alertIsPresent());
 
+        Alert alert = driver.switchTo().alert();
+
         System.out.println(driver.switchTo().alert().getText());
         driver.switchTo().alert().accept();
 
@@ -29,8 +32,11 @@ public class AlertsPopUps {
 
         wait.until(ExpectedConditions.alertIsPresent());
 
-        System.out.println(driver.switchTo().alert().getText());
-        driver.switchTo().alert().dismiss();
+        alert = driver.switchTo().alert();
+        System.out.println(alert.getText());
+        alert.dismiss();
+
+        driver.quit();
 
     }
 }
