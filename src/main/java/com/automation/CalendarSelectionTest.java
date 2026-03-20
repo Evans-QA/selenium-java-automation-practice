@@ -2,11 +2,14 @@ package com.automation;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 import java.time.Duration;
+import java.util.List;
 
 public class CalendarSelectionTest {
     public static void main(String[] args) {
@@ -34,5 +37,17 @@ public class CalendarSelectionTest {
 
         driver.findElement(By.xpath("//abbr[text()='" + dayNumber + "']")).click();
 
+        List<WebElement> actualList = driver.findElements(By.cssSelector(".react-date-picker__inputGroup__input"));
+
+
+        for (int i = 0; i < actualList.size(); i++) {
+
+            System.out.println(actualList.get(i).getAttribute("value"));
+
+            Assert.assertEquals(actualList.get(i).getAttribute("value"), expectedList[i]);
+
+        }
+
+        driver.close();
     }
 }
