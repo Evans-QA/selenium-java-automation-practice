@@ -14,30 +14,33 @@ public class CourseAssignmentSix {
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://rahulshettyacademy.com/AutomationPractice/");
-        WebElement checkBoxOption = driver.findElement(By.id("checkBoxOption2"));
-        checkBoxOption.click();
 
+        // 1. Select any checkbox
+        WebElement checkBox = driver.findElement(By.id("checkBoxOption2"));
+        checkBox.click();
+
+        // 2. Grab the label
+        String grabbedText = driver.findElement(By.xpath("//*[@id='checkBoxOption2']/parent::label")).getText().trim();
+        System.out.println("Pobrany tekst to: " + grabbedText);
+
+        // 3. Select option in dropdown using variable
         WebElement dropdownElement = driver.findElement(By.id("dropdown-class-example"));
-
         Select dropdown = new Select(dropdownElement);
-        dropdown.selectByVisibleText("Option2");
+        dropdown.selectByVisibleText(grabbedText);
 
-        WebElement enterNameOption = driver.findElement(By.id("name"));
-        enterNameOption.sendKeys("Option2");
+        // 4. Enter grabbed text in Editbox
+        driver.findElement(By.id("name")).sendKeys(grabbedText);
 
-        String selectedOption = "Option2";
-
+        // 5. Click Alert and verify
         driver.findElement(By.id("alertbtn")).click();
 
-        Alert alert = driver.switchTo().alert();
+        String alertMessage = driver.switchTo().alert().getText();
 
-        String alertMessage = alert.getText();
 
-        Assert.assertTrue(alertMessage.contains(selectedOption), "Error: alert should contain " + selectedOption);
+        Assert.assertTrue(alertMessage.contains(grabbedText),
+                "Error: Alert message does not contain " + grabbedText);
 
         driver.switchTo().alert().accept();
-
         driver.quit();
-
     }
 }
