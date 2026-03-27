@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 import java.time.Duration;
 import java.util.List;
@@ -32,7 +33,18 @@ public class JavaScriptExecutorDemo {
         }
 
         System.out.println(sum);
-        
+
+        String totalText = driver.findElement(By.cssSelector(".totalAmount")).getText();
+
+        System.out.println(totalText);
+
+        String valueOnly = totalText.split(":")[1].trim();
+
+        int totalAmountFromPage = Integer.parseInt(valueOnly);
+
+        Assert.assertEquals(sum, totalAmountFromPage, "Sum does not match");
+
         driver.quit();
+
     }
 }
